@@ -1,0 +1,99 @@
+<html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Cooperativa Agrícola</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e9f5ec, #d4edda);
+      text-align: center;
+      padding: 60px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+      width: 250px;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #2e7d32;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1b5e20;
+    }
+
+    .link {
+      margin-top: 20px;
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+<button onclick="lerTexto()">🔊 Ler</button>
+<button onclick="pausarLeitura()">⏸ Pausar</button>
+<button onclick="pararLeitura()">⛔ Parar</button>
+
+  <div class="container">
+    <h1>Entrar na Cooperativa</h1>
+    <form method="POST" action="verifica_login.php">
+      <input type="email" name="email" placeholder="E-mail" required><br>
+      <input type="password" name="senha" placeholder="Senha" required><br>
+      <input type="submit" value="Entrar">
+    </form>
+    <a class="link" href="cadastro_usuario.php">Não tem conta? Cadastre-se</a>
+  </div>
+  <script>
+let utterance; // Variável global para controlar a fala
+
+function lerTexto() {
+    const texto = document.body.innerText;
+    utterance = new SpeechSynthesisUtterance(texto);
+
+    utterance.lang = "pt-BR";
+    utterance.rate = 1;
+    utterance.pitch = 1;
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+}
+
+function pausarLeitura() {
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+    } else if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+    }
+}
+
+function pararLeitura() {
+    window.speechSynthesis.cancel();
+}
+</script>
+
+</body>
+</html>
